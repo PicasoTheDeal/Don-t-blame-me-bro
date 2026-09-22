@@ -26,4 +26,6 @@ jobs:
           ./rand_commits.sh
 
       - name: Push commits
-        run: git push
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push
