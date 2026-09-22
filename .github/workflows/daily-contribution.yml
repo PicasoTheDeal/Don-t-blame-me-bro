@@ -1,0 +1,29 @@
+name: Daily Contribution Generator
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure Git identity
+        run: |
+          git config --global user.name "PicasoTheDeal"
+          git config --global user.email "85729145+PicasoTheDeal@users.noreply.github.com"
+
+      - name: Run script to generate commits
+        run: |
+          chmod +x rand_commits.sh
+          ./rand_commits.sh
+
+      - name: Push commits
+        run: git push
